@@ -45,5 +45,8 @@
     		"filetypes": ["sql", "mysql"]
     	}
 
-}
+},
+  "rust-analyzer.cargo-watch.enable": true,
+  "rust-analyzer.serverPath": "rust-analyzer"
+
 }

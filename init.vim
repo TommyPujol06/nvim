@@ -5,7 +5,6 @@ Plug 'morhetz/gruvbox'
 Plug 'junegunn/fzf'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
 Plug 'edkolev/tmuxline.vim'
 Plug 'preservim/nerdtree'
 Plug 'tpope/vim-eunuch'
@@ -34,6 +33,7 @@ Plug 'stephpy/vim-yaml'
 Plug 'fannheyward/coc-markdownlint'
 Plug 'fannheyward/coc-pyright'
 Plug 'josa42/coc-go'
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
 " Map nerdtree keys
@@ -124,6 +124,12 @@ nmap <leader>rn <Plug>(coc-rename)
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 let g:rust_clip_command = 'xclip -selection clipboard'
+let g:rustfmt_autosave = 1
+
+" Rust things
+
+au FileType rust source ~/.config/nvim/scripts/spacetab.vim
+au FileType rust set colorcolumn=100
 
 " Ale things
 let g:ale_linters = { 'python': ['flake8', 'pylint'] }
