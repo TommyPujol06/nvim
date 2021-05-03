@@ -141,6 +141,7 @@ set updatetime=300
 
 filetype plugin indent on
 
+set nohlsearch
 set autoindent
 set timeoutlen=300
 set encoding=utf-8
