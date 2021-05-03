@@ -70,7 +70,7 @@ let g:comfortable_motion_air_drag = 1.0
 
 " Airline configs
 if !has('gui_running')
-	  set t_Co=256
+	set t_Co=256
 endif
 set noshowmode
 let g:airline_theme='owo'
@@ -239,10 +239,10 @@ imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-j> <Plug>(coc-snippets-select)
 
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+	\ pumvisible() ? coc#_select_confirm() :
+	\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+	\ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
 
 function! s:check_back_space() abort
   let col = col('.') - 1
