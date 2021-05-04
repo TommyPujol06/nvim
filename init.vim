@@ -1,27 +1,40 @@
-:let mapleader = "<space>"
+let mapleader = "<space>"
 
 call plug#begin('~/.config/nvim/plugged')
+" Theme
 Plug 'morhetz/gruvbox'
-Plug 'junegunn/fzf'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'edkolev/tmuxline.vim'
-Plug 'preservim/nerdtree'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-surround'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'machakann/vim-highlightedyank'
-Plug 'ciaranm/securemodelines'
-Plug 'yuttie/comfortable-motion.vim'
-Plug 'tpope/vim-commentary'
+
+" Icons for files & emojis
 Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/vim-emoji'
-Plug 'FuDesign2008/emoji-snippets.vim'
-Plug 'dense-analysis/ale'
-Plug 'Vimjas/vim-python-pep8-indent'
+
+" Fuzy finder
+Plug 'junegunn/fzf'
+
+" Status bar
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" File explorer
+Plug 'preservim/nerdtree'
+
+" Support for editorconfig file
+Plug 'editorconfig/editorconfig-vim'
+
+" Show git status
+Plug 'airblade/vim-gitgutter'
+
+" Highlight yanked part in visual mode
+Plug 'machakann/vim-highlightedyank'
+
+" Limit VIM modelines.
+Plug 'ciaranm/securemodelines'
+
+" Easily comment out lines
+Plug 'tpope/vim-commentary'
+
+" Coc and language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Support for programming languages.
 Plug 'neoclide/coc-css'
 Plug 'neoclide/coc-html'
 Plug 'neoclide/coc-tsserver'
@@ -35,22 +48,8 @@ Plug 'fannheyward/coc-markdownlint'
 Plug 'fannheyward/coc-pyright'
 Plug 'josa42/coc-go'
 Plug 'rust-lang/rust.vim'
+Plug 'mindriot101/vim-yapf'
 call plug#end()
-
-" Map nerdtree keys
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-
-" Emoji autocomplete
-set completefunc=emoji#complete
-augroup emoji_complete
-  autocmd!
-  autocmd FileType markdown setlocal completefunc=emoji#complete
-  " Emoji command to replace emoji name with emoji e.g. :apple: with 🍎
-  command! -nargs=* Emoji %s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
-augroup END
 
 " Map Ctrl+P to the FZF command
 nmap <C-P> :FZF<CR>
@@ -61,14 +60,6 @@ command Wq wq
 command W w
 command Q q
 
-" Comfy scroll
-let g:comfortable_motion_scroll_down_key = "j"
-let g:comfortable_motion_scroll_up_key = "k"
-noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
-noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
-let g:comfortable_motion_friction = 50.0
-let g:comfortable_motion_air_drag = 1.0
-
 " Airline configs
 if !has('gui_running')
 	set t_Co=256
@@ -78,6 +69,12 @@ let g:airline_theme='owo'
 let g:airline#extensions#tabline#enabled = 1
 
 " NERDTree settings.
+
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+
 let NERDTreeQuitOnOpen = 0
 let NERDTreeShowHidden=1
 let NERDChristmasTree=1
@@ -132,17 +129,9 @@ let g:rustfmt_autosave = 1
 au FileType rust source ~/.config/nvim/scripts/spacetab.vim
 au FileType rust set colorcolumn=100
 
-" Ale things
-let g:ale_linters = { 'python': ['flake8', 'pylint'] }
-let g:ale_fixers = { 'python': ['yapf'] }
-nmap <F10> :ALEFix<CR>
-let g:ale_fix_on_save = 1
-
-
-" Autocompletion
-
-set cmdheight=2
-set updatetime=300
+" Python auto-formatting
+let g:yapf_style = "pep8"
+autocmd BufWritePre *.py 0,$!yapf
 
 " Vim stuff
 
@@ -163,6 +152,9 @@ set splitright
 set splitbelow
 set undodir=~/.config/nvim/vimdid
 set undofile
+set cmdheight=2
+set updatetime=300
+
 
 set wildmenu
 set wildmode=list:longest
