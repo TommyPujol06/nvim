@@ -48,7 +48,7 @@ Plug 'fannheyward/coc-markdownlint'
 Plug 'fannheyward/coc-pyright'
 Plug 'josa42/coc-go'
 Plug 'rust-lang/rust.vim'
-Plug 'mindriot101/vim-yapf'
+Plug 'dense-analysis/ale'
 call plug#end()
 
 " Map Ctrl+P to the FZF command
@@ -129,9 +129,11 @@ let g:rustfmt_autosave = 1
 au FileType rust source ~/.config/nvim/scripts/spacetab.vim
 au FileType rust set colorcolumn=100
 
-" Python auto-formatting
-let g:yapf_style = "pep8"
-autocmd BufWritePre *.py 0,$!yapf
+" Ale
+let b:ale_linters = ['yapf']
+let b:ale_fixers = {'python': ['yapf']}
+let g:ale_completion_enabled = 1
+let g:ale_fix_on_save = 1
 
 " Vim stuff
 
@@ -229,7 +231,8 @@ nmap <silent> <TAB> <Plug>(coc-range-select)
 xmap <silent> <TAB> <Plug>(coc-range-select)
 
 if has("autocmd")
-	au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! h'\"" | endif
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
 endif
 
 " Coc snippets
