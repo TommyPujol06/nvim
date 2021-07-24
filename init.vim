@@ -1,54 +1,39 @@
-let mapleader = "<space>"
-
 call plug#begin('~/.config/nvim/plugged')
-" Theme
-Plug 'morhetz/gruvbox'
 
-" Icons for files & emojis
-Plug 'ryanoasis/vim-devicons'
-Plug 'junegunn/vim-emoji'
-
-" Fuzy finder
+" Fuzzy finder
 Plug 'junegunn/fzf'
+Plug 'airblade/vim-rooter'
 
-" Status bar
+" UI
+Plug 'sainnhe/sonokai'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-" File explorer
-Plug 'preservim/nerdtree'
-
-" Support for editorconfig file
-Plug 'editorconfig/editorconfig-vim'
-
-" Show git status
 Plug 'airblade/vim-gitgutter'
+Plug 'andymass/vim-matchup'
 
-" Highlight yanked part in visual mode
+" Misc
+Plug 'editorconfig/editorconfig-vim'
 Plug 'machakann/vim-highlightedyank'
-
-" Limit VIM modelines.
+Plug 'tpope/vim-commentary'
 Plug 'ciaranm/securemodelines'
 
-" Easily comment out lines
-Plug 'tpope/vim-commentary'
+" Autocompletion
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'nvim-lua/completion-nvim'
 
-" Coc and language support
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-css'
-Plug 'neoclide/coc-html'
-Plug 'neoclide/coc-tsserver'
-Plug 'neoclide/coc-json'
-Plug 'neoclide/coc-sources'
-Plug 'neoclide/coc-neco'
-Plug 'neoclide/coc-snippets'
+" Autocompletion plugins
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
-Plug 'fannheyward/coc-markdownlint'
-Plug 'fannheyward/coc-pyright'
-Plug 'josa42/coc-go'
 Plug 'rust-lang/rust.vim'
-Plug 'dense-analysis/ale'
+Plug 'rhysd/vim-clang-format'
+Plug 'fatih/vim-go'
+Plug 'dag/vim-fish'
+Plug 'lervag/vimtex'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'ambv/black'
+Plug 'hrsh7th/nvim-compe'
+
 call plug#end()
 
 " Map Ctrl+P to the FZF command
@@ -64,78 +49,6 @@ command Q q
 if !has('gui_running')
 	set t_Co=256
 endif
-set noshowmode
-let g:airline_theme='owo'
-let g:airline#extensions#tabline#enabled = 1
-
-" NERDTree settings.
-
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-
-let NERDTreeQuitOnOpen = 0
-let NERDTreeShowHidden=1
-let NERDChristmasTree=1
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeWinSize = 25
-let g:NERDTreeDirArrowExpandable = '▷'
-let g:NERDTreeDirArrowCollapsible = '▼'
-let NERDTreeAutoCenter=1
-let g:NERDTreeIndicatorMapCustom = {
-        \ "modified"  : "✹",
-        \ "staged"    : "✚",
-        \ "untracked" : "✭",
-        \ "renamed"   : "➜",
-        \ "unmerged"  : "═",
-        \ "deleted"   : "✖",
-        \ "dirty"     : "✗",
-        \ "clean"     : "✔︎",
-        \ 'ignored'   : '☒',
-        \ "unknown"   : "?"
-        \ }
-
-
-" Devicons
-let g:webdevicons_enable = 1
-let g:webdevicons_enable_nerdtree = 1
-let g:webdevicons_enable_airline_tabline = 1
-let g:WebDevIconsUnicodeDecorateFileNodes = 1
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
-let g:webdevicons_enable_airline_statusline = 1
-let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
-let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
-let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
-let g:DevIconsDefaultFolderOpenSymbol = ''
-
-" Git gutter
-let g:gitgutter_sign_added = emoji#for('small_blue_diamond')
-let g:gitgutter_sign_modified = emoji#for('small_orange_diamond')
-let g:gitgutter_sign_removed = emoji#for('small_red_triangle')
-let g:gitgutter_sign_modified_removed = emoji#for('collision')
-
-"Coc
-
-nmap <leader>rn <Plug>(coc-rename)
-let g:rustfmt_emit_files = 1
-let g:rustfmt_fail_silently = 0
-let g:rust_clip_command = 'xclip -selection clipboard'
-let g:rustfmt_autosave = 1
-
-" Rust things
-
-au FileType rust source ~/.config/nvim/scripts/spacetab.vim
-au FileType rust set colorcolumn=100
-
-" Ale
-let b:ale_linters = ['yapf']
-let b:ale_fixers = {'python': ['yapf']}
-let g:ale_completion_enabled = 1
-let g:ale_fix_on_save = 1
-
-" Vim stuff
 
 filetype plugin indent on
 
@@ -157,7 +70,7 @@ set undofile
 set cmdheight=2
 set updatetime=300
 
-
+set completeopt=menuone,noinsert,noselect
 set wildmenu
 set wildmode=list:longest
 set wildignore=*.png,*.jpg,*.gif,*.mp4,*.mp3,*.o,vendor,publish/*,*.min.*,*.db
@@ -178,14 +91,10 @@ set ignorecase
 set smartcase
 set gdefault
 
-" Center search results
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
 
-" Vim GUI stuff
+nnoremap ? ?\v
+nnoremap / /\v
+cnoremap %s/ %sm/
 
 set termguicolors
 set guioptions-=T
@@ -220,38 +129,150 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
-inoremap <silent><expr> <c-space> coc#refresh()
+" LSP Settings
+lua << END
+local lspconfig = require('lspconfig')
+local on_attach = function(client, bufnr)
+local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1] =~# '\s'
-endfunction
+--Enable completion triggered by <c-x><c-o>
+buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
+-- Mappings.
+local opts = { noremap=true, silent=true }
 
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-    \| exe "normal! g'\"" | endif
+-- See `:help vim.lsp.*` for documentation on any of the below functions
+buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+
+end
+
+local servers = { "rust_analyzer", "pyright", "clangd", "gopls" }
+for _, lsp in ipairs(servers) do
+	lspconfig[lsp].setup {
+		on_attach = on_attach,
+		flags = {
+			debounce_text_changes = 150,
+			}
+		}
+end
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+vim.lsp.diagnostic.on_publish_diagnostics, {
+	virtual_text = true,
+	signs = true,
+	update_in_insert = true,
+	}
+)
+
+require'compe'.setup {
+enabled = true;
+autocomplete = true;
+debug = false;
+min_length = 1;
+preselect = 'enable';
+throttle_time = 80;
+source_timeout = 200;
+incomplete_delay = 400;
+max_abbr_width = 100;
+max_kind_width = 100;
+max_menu_width = 100;
+documentation = true;
+
+source = {
+	path = true;
+	nvim_lsp = true;
+	};
+}
+
+local t = function(str)
+return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local check_back_space = function()
+local col = vim.fn.col('.') - 1
+if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+	return true
+else
+	return false
+end
+end
+
+-- Use (s-)tab to:
+--- move to prev/next item in completion menuone
+--- jump to prev/next snippet's placeholder
+_G.tab_complete = function()
+if vim.fn.pumvisible() == 1 then
+	return t "<C-n>"
+elseif check_back_space() then
+	return t "<Tab>"
+else
+	return vim.fn['compe#complete']()
+end
+end
+_G.s_tab_complete = function()
+if vim.fn.pumvisible() == 1 then
+	return t "<C-p>"
+else
+	return t "<S-Tab>"
+end
+end
+
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+
+--This line is important for auto-import
+vim.api.nvim_set_keymap('i', '<cr>', 'compe#confirm("<cr>")', { expr = true })
+vim.api.nvim_set_keymap('i', '<c-space>', 'compe#complete()', { expr = true })
+END
+
+" Use ripgrep
+if executable('rg')
+	set grepprg=rg\ --no-heading\ --vimgrep
+	set grepformat=%f:%l:%c:%m
 endif
 
-" Coc snippets
-imap <C-l> <Plug>(coc-snippets-expand)
+" LSP language specific
+let g:latex_indent_enabled = 1
+let g:latex_fold_envs = 0
+let g:latex_fold_sections = []
 
-" Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
+let g:rustfmt_autosave = 1
+let g:rustfmt_emit_files = 1
+let g:rustfmt_fail_silently = 0
+let g:rust_clip_command = 'xclip -selection clipboard'
 
-inoremap <silent><expr> <TAB>
-	\ pumvisible() ? coc#_select_confirm() :
-	\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-	\ <SID>check_back_space() ? "\<TAB>" :
-    \ coc#refresh()
+autocmd BufWritePre *.py execute ':Black'
+au Filetype rust set colorcolumn=100
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-let g:coc_snippet_next = '<tab>'
+" use <Tab> as trigger keys
+imap <Tab> <Plug>(completion_smart_tab)
+imap <S-Tab> <Plug>(completion_smart_s_tab)
 
-colorscheme gruvbox
+" Enable type inlay hints
+autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
+
+if has("autocmd")
+	" https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
+	au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+colorscheme sonokai
