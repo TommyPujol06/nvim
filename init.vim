@@ -15,6 +15,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-commentary'
 Plug 'ciaranm/securemodelines'
+Plug 'terryma/vim-multiple-cursors'
 
 " Autocompletion
 Plug 'neovim/nvim-lspconfig'
@@ -247,6 +248,8 @@ if executable('rg')
 	set grepformat=%f:%l:%c:%m
 endif
 
+let $FZF_DEFAULT_COMMAND = 'rg --files'
+
 " LSP language specific
 let g:latex_indent_enabled = 1
 let g:latex_fold_envs = 0
@@ -257,7 +260,8 @@ let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 let g:rust_clip_command = 'xclip -selection clipboard'
 
-autocmd BufWritePre *.py execute ':Black'
+autocmd BufWritePost *.py execute ':Black'
+
 au Filetype rust set colorcolumn=100
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
