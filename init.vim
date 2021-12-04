@@ -7,7 +7,8 @@ Plug 'junegunn/fzf'
 Plug 'airblade/vim-rooter'
 
 " UI
-Plug 'sainnhe/sonokai'
+Plug 'liuchengxu/space-vim-dark'
+Plug 'vimpostor/vim-tpipeline'
 Plug 'andymass/vim-matchup'
 
 " Misc
@@ -17,6 +18,7 @@ Plug 'tpope/vim-commentary'
 Plug 'ciaranm/securemodelines'
 
 Plug 'rust-lang/rust.vim'
+Plug 'lervag/vimtex'
 Plug 'ambv/black'
 
 call plug#end()
@@ -83,7 +85,7 @@ set number
 set diffopt+=iwhite
 set diffopt+=algorithm:patience
 set diffopt+=indent-heuristic
-set colorcolumn=80
+set colorcolumn=90
 set showcmd
 set mouse=a
 set shortmess+=c
@@ -102,6 +104,11 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
+let g:copilot_filetypes = { 'txt': v:false, 'tex': v:false } " Disable copilot for txt & latex files
+
+let g:tpipeline_autoembed = 0
+let g:tpipeline_statusline = '%f %l/%L %p%%'
+
 " Use ripgrep
 if executable('rg')
 	set grepprg=rg\ --no-heading\ --vimgrep
@@ -116,10 +123,15 @@ let g:rustfmt_fail_silently = 0
 let g:rust_clip_command = 'xclip -selection clipboard'
 
 autocmd BufWritePost *.py execute ':Black'
-
 au Filetype rust set colorcolumn=100
 
 setlocal spell
 set spelllang=en_gb,ca,es
 
-colorscheme sonokai
+augroup RestoreCursorShapeOnExit
+    autocmd!
+    autocmd VimLeave * set guicursor=a:ver20
+augroup END
+
+colorscheme space-vim-dark
+hi! Normal guibg=000000
